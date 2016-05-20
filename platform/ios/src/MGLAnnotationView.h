@@ -40,6 +40,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign, getter=isFlat) BOOL flat;
 
+/**
+ Setting this property to YES will cause the annotation to shrink as it approaches the horizon and grow as it moves away from the
+ horizon when the associated map view is tilted.
+ */
+@property (nonatomic, assign, getter=isScaled) BOOL scaled;
 
 /**
  Called when the view is removed from the reuse queue.

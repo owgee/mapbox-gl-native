@@ -35,18 +35,24 @@
 
 - (void)setCenter:(CGPoint)center
 {
-    [self setCenter:center pitch:0];
+    [self setCenter:center pitch:0 maxPitch:0];
 }
 
-- (void)setCenter:(CGPoint)center pitch:(CGFloat)pitch
+- (void)setCenter:(CGPoint)center pitch:(CGFloat)pitch maxPitch:(CGFloat)maxPitch
 {
     center.x += _centerOffset.dx;
     center.y += _centerOffset.dy;
     
     [super setCenter:center];
     
-    if (_flat) {
+    if (self.flat)
+    {
         [self updatePitch:pitch];
+    }
+  
+    if (self.scaled)
+    {
+        [self updateScaleForPitch:pitch maxPitch:maxPitch];
     }
 }
 
@@ -54,6 +60,18 @@
 {
     CATransform3D t = CATransform3DRotate(CATransform3DIdentity, MGLRadiansFromDegrees(pitch), 1.0, 0, 0);
     self.layer.transform = t;
+}
+
+- (void)updateScaleForPitch:(CGFloat)pitch maxPitch:(CGFloat)maxPitch
+{
+    CGFloat superViewHeight = CGRectGetHeight(self.superview.frame);
+    if (superViewHeight > 0.0) {
+        CGFloat scaleReduction = 1.0 - self.center.y / superViewHeight;
+        CGFloat pitchIntensity = MAX(pitch, 0) / maxPitch;
+        CGFloat pitchAdjustedScale = 1.0 - scaleReduction * pitchIntensity;
+        CATransform3D transform = self.flat ? self.layer.transform : CATransform3DIdentity;
+        self.layer.transform = CATransform3DScale(transform, pitchAdjustedScale, pitchAdjustedScale, 1);
+    }
 }
 
 - (id<CAAction>)actionForLayer:(CALayer *)layer forKey:(NSString *)event

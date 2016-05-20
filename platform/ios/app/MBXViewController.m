@@ -620,6 +620,7 @@ static NSString * const MBXViewControllerAnnotationViewReuseIdentifer = @"MBXVie
         annotationView.frame = CGRectMake(0, 0, 40, 40);
         annotationView.centerColor = [UIColor whiteColor];
         annotationView.flat = YES;
+        annotationView.scaled = YES;
     } else {
         // orange indicates that the annotation view was reused
         annotationView.centerColor = [UIColor orangeColor];
