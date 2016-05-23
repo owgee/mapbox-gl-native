@@ -30,4 +30,26 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface MGLPolylineFeature : MGLPolyline <MGLFeature>
+
+@property (nonatomic, copy, nullable, readwrite) NSNumber *featureTag;
+@property (nonatomic, copy, readwrite) NS_DICTIONARY_OF(NSString *, id) *featureAttributes;
+
+@end
+
+@interface MGLMultiPolyline : MGLShape <MGLOverlay>
+
++ (instancetype)multiPolylineWithPolylines:(NS_ARRAY_OF(MGLPolyline *) *)polylines;
+
+@property (nonatomic, strong, readonly) NS_ARRAY_OF(MGLPolyline *) *polylines;
+
+@end
+
+@interface MGLMultiPolylineFeature : MGLMultiPolyline <MGLFeature>
+
+@property (nonatomic, copy, nullable, readwrite) NSNumber *featureTag;
+@property (nonatomic, copy, readwrite) NS_DICTIONARY_OF(NSString *, id) *featureAttributes;
+
+@end
+
 NS_ASSUME_NONNULL_END

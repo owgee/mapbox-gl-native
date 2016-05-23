@@ -1,6 +1,7 @@
 #import "MGLPolygon.h"
 
 #import "MGLMultiPoint_Private.h"
+#import "MGLGeometry_Private.h"
 
 @implementation MGLPolygon
 
@@ -23,6 +24,58 @@
     shapeProperties.set<mbgl::FillAnnotationProperties>(fillProperties);
     
     return shapeProperties;
+}
+
+@end
+
+@implementation MGLPolygonFeature
+
+- (id)objectForKey:(NSString *)attribute {
+    return self.featureAttributes[attribute];
+}
+
+@end
+
+@interface MGLMultiPolygon ()
+
+@property (nonatomic, strong, readwrite) NS_ARRAY_OF(MGLPolygon *) *polygons;
+
+@end
+
+@implementation MGLMultiPolygon {
+    MGLCoordinateBounds _overlayBounds;
+}
+
+@synthesize overlayBounds = _overlayBounds;
+
++ (instancetype)multiPolygonWithPolygons:(NS_ARRAY_OF(MGLPolygon *) *)polygons {
+    return [[self alloc] init];
+}
+
+- (instancetype)initWithPolygon:(NS_ARRAY_OF(MGLPolygon *) *)polygons {
+    if (self = [super init]) {
+        _polygons = polygons;
+        
+        mbgl::LatLngBounds bounds = mbgl::LatLngBounds::empty();
+        
+        for (MGLPolygon *polygon in _polygons) {
+            bounds.extend(MGLLatLngBoundsFromCoordinateBounds(polygon.overlayBounds));
+        }
+        _overlayBounds = MGLCoordinateBoundsFromLatLngBounds(bounds);
+    }
+    return self;
+}
+
+- (BOOL)intersectsOverlayBounds:(MGLCoordinateBounds)overlayBounds {
+    return MGLLatLngBoundsFromCoordinateBounds(_overlayBounds).intersects(MGLLatLngBoundsFromCoordinateBounds(overlayBounds));
+}
+
+@end
+
+@implementation MGLMultiPolygonFeature
+
+- (id)objectForKey:(NSString *)attribute {
+    return self.featureAttributes[attribute];
 }
 
 @end

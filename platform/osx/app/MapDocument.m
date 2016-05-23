@@ -408,7 +408,8 @@ static const CLLocationCoordinate2D WorldTourDestinations[] = {
         if (!NSPointInRect([gestureRecognizer locationInView:self.mapView.compass], self.mapView.compass.bounds)
             && !NSPointInRect([gestureRecognizer locationInView:self.mapView.zoomControls], self.mapView.zoomControls.bounds)
             && !NSPointInRect([gestureRecognizer locationInView:self.mapView.attributionView], self.mapView.attributionView.bounds)) {
-            [self dropPinAtPoint:location];
+            NSArray *features = [self.mapView visibleFeaturesAtPoint:location];
+            [self.mapView addAnnotations:features];
         }
     }
 }
@@ -424,9 +425,18 @@ static const CLLocationCoordinate2D WorldTourDestinations[] = {
 }
 
 - (DroppedPinAnnotation *)pinAtPoint:(NSPoint)point {
+    NSArray *features = [self.mapView visibleFeaturesAtPoint:point];
+    NSString *title;
+    for (id <MGLFeature> feature in features) {
+        NSLog(@"#%@: %@", feature.featureTag, feature.featureAttributes);
+        if (!title) {
+            title = [feature objectForKey:@"name_en"] ?: [feature objectForKey:@"name"];
+        }
+    }
+    
     DroppedPinAnnotation *annotation = [[DroppedPinAnnotation alloc] init];
     annotation.coordinate = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
-    annotation.title = @"Dropped Pin";
+    annotation.title = title ?: @"Dropped Pin";
     _spellOutNumberFormatter.numberStyle = NSNumberFormatterSpellOutStyle;
     if (_showsToolTipsOnDroppedPins) {
         NSString *formattedNumber = [_spellOutNumberFormatter stringFromNumber:@(++_droppedPinCounter)];
@@ -677,6 +687,10 @@ static const CLLocationCoordinate2D WorldTourDestinations[] = {
         DroppedPinAnnotation *droppedPin = annotation;
         [droppedPin pause];
     }
+}
+
+- (CGFloat)mapView:(MGLMapView *)mapView alphaForShapeAnnotation:(MGLShape *)annotation {
+    return 0.8;
 }
 
 @end

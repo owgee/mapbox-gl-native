@@ -135,3 +135,11 @@ mbgl::Color MGLColorObjectFromCGColorRef(CGColorRef cgColor) {
 }
 
 @end
+
+@implementation MGLMultiPointFeature
+
+- (id)objectForKey:(NSString *)attribute {
+    return self.featureAttributes[attribute];
+}
+
+@end

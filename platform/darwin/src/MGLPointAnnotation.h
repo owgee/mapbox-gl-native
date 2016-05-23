@@ -22,4 +22,26 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface MGLPointFeature : MGLPointAnnotation <MGLFeature>
+
+@property (nonatomic, copy, nullable, readwrite) NSNumber *featureTag;
+@property (nonatomic, copy, readwrite) NS_DICTIONARY_OF(NSString *, id) *featureAttributes;
+
+@end
+
+@interface MGLGeometryCollection : NSObject <MGLAnnotation>
+
+@property (nonatomic, copy) NS_ARRAY_OF(id <MGLAnnotation>) *geometries;
+
++ (instancetype)geometryCollectionWithGeometries:(NS_ARRAY_OF(id <MGLAnnotation>) *)geometries;
+
+@end
+
+@interface MGLGeometryCollectionFeature : MGLGeometryCollection <MGLFeature>
+
+@property (nonatomic, copy, nullable, readwrite) NSNumber *featureTag;
+@property (nonatomic, copy, readwrite) NS_DICTIONARY_OF(NSString *, id) *featureAttributes;
+
+@end
+
 NS_ASSUME_NONNULL_END

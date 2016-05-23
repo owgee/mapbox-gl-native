@@ -28,6 +28,7 @@ typedef NS_OPTIONS(NSUInteger, MGLMapDebugMaskOptions) {
 @protocol MGLAnnotation;
 @protocol MGLMapViewDelegate;
 @protocol MGLOverlay;
+@protocol MGLFeature;
 
 /**
  An interactive, customizable map view with an interface similar to the one
@@ -679,6 +680,10 @@ IB_DESIGNABLE
      protocol.
  */
 - (void)removeOverlays:(NS_ARRAY_OF(id <MGLOverlay>) *)overlays;
+
+#pragma mark Accessing the Underlying Map Data
+
+- (NS_ARRAY_OF(id <MGLFeature>) *)visibleFeaturesAtPoint:(NSPoint)point;
 
 #pragma mark Converting Geographic Coordinates
 

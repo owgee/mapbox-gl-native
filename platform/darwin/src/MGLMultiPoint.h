@@ -36,4 +36,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface MGLMultiPointFeature : MGLMultiPoint <MGLFeature>
+
+@property (nonatomic, copy, nullable, readwrite) NSNumber *featureTag;
+@property (nonatomic, copy, readwrite) NS_DICTIONARY_OF(NSString *, id) *featureAttributes;
+
+@end
+
 NS_ASSUME_NONNULL_END
