@@ -26,7 +26,6 @@ namespace mbgl {
 class SDFShader;
 class IconShader;
 class CollisionBoxShader;
-class DotShader;
 class CollisionTile;
 class SpriteAtlas;
 class SpriteStore;
