@@ -2289,17 +2289,17 @@ public:
         return @(value.c_str());
     }
     
-    id operator()(const std::vector<mapbox::geometry::value> &values) const {
+    id operator()(const std::vector<mbgl::Value> &values) const {
         std::vector<id> objects;
         objects.reserve(values.size());
-        std::transform(values.begin(), values.end(), std::back_inserter(objects), ^id (const mapbox::geometry::value &value) {
+        std::transform(values.begin(), values.end(), std::back_inserter(objects), ^id (const mbgl::Value &value) {
             PropertyValueEvaluator evaluator;
-            return mapbox::geometry::value::visit(value, evaluator);
+            return mbgl::Value::visit(value, evaluator);
         });
         return [NSArray arrayWithObjects:&objects[0] count:objects.size()];
     }
     
-    id operator()(const std::unordered_map<std::string, mapbox::geometry::value> &items) const {
+    id operator()(const std::unordered_map<std::string, mbgl::Value> &items) const {
         std::vector<NSString *> keys;
         keys.reserve(items.size());
         std::vector<id> objects;
@@ -2307,7 +2307,7 @@ public:
         for (auto &item : items) {
             keys.push_back(@(item.first.c_str()));
             PropertyValueEvaluator evaluator;
-            objects.push_back(mapbox::geometry::value::visit(item.second, evaluator));
+            objects.push_back(mbgl::Value::visit(item.second, evaluator));
         }
         return [NSDictionary dictionaryWithObjects:&objects[0] forKeys:&keys[0] count:keys.size()];
     }
@@ -2325,7 +2325,7 @@ public:
         for (auto &pair : feature.properties) {
             auto &value = pair.second;
             PropertyValueEvaluator evaluator;
-            attributes[@(pair.first.c_str())] = mapbox::geometry::value::visit(value, evaluator);
+            attributes[@(pair.first.c_str())] = mbgl::Value::visit(value, evaluator);
         }
     }
     
