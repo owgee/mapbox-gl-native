@@ -26,6 +26,7 @@
 #include <mbgl/util/chrono.hpp>
 
 #import "Mapbox.h"
+#import "MGLFeature_Private.h"
 #import "MGLGeometry_Private.h"
 #import "MGLMultiPoint_Private.h"
 #import "MGLOfflineStorage_Private.h"
@@ -2801,6 +2802,22 @@ mbgl::Duration MGLDurationInSeconds(NSTimeInterval duration)
             [(MGLMultiPoint *)annotation addShapeAnnotationObjectToCollection:shapes withDelegate:self];
             [userShapes addObject:annotation];
         }
+        else if ([annotation isKindOfClass:[MGLMultiPolyline class]])
+        {
+            // TODO: Add real support for these types down in mbgl instead of breaking the annotation apart.
+            NS_ARRAY_OF(MGLPolyline *) *polylines = [(MGLMultiPolyline *)annotation polylines];
+            [self addAnnotations:polylines];
+        }
+        else if ([annotation isKindOfClass:[MGLMultiPolygon class]])
+        {
+            NS_ARRAY_OF(MGLPolygon *) *polygons = [(MGLMultiPolygon *)annotation polygons];
+            [self addAnnotations:polygons];
+        }
+        else if ([annotation isKindOfClass:[MGLGeometryCollection class]])
+        {
+            NS_ARRAY_OF(id <MGLAnnotation>) *geometries = [(MGLGeometryCollection *)annotation geometries];
+            [self addAnnotations:geometries];
+        }
         else
         {
             MGLAnnotationView *annotationView;
@@ -4169,6 +4186,17 @@ mbgl::Duration MGLDurationInSeconds(NSTimeInterval duration)
             }
         }
     }
+}
+
+#pragma mark Data
+
+- (NS_ARRAY_OF(id <MGLFeature>) *)visibleFeaturesAtPoint:(CGPoint)point {
+    mbgl::ScreenCoordinate flippedPoint = { point.x, point.y };
+    std::vector<mbgl::Feature> features = _mbglMap->queryRenderedFeatures(flippedPoint);
+    std::vector<id <MGLFeature>> annotations;
+    annotations.reserve(features.size());
+    std::transform(features.begin(), features.end(), std::back_inserter(annotations), MGLFeatureFromMBGLFeature);
+    return [NSArray arrayWithObjects:&annotations[0] count:annotations.size()];
 }
 
 #pragma mark - Utility -

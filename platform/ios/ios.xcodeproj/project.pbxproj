@@ -228,6 +228,11 @@
 		DABFB8731CBE9A9900D62B32 /* Mapbox.h in Headers */ = {isa = PBXBuildFile; fileRef = DA88485E1CBAFC2E00AB86E3 /* Mapbox.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DAC49C5C1CD02BC9009E1AA3 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = DAC49C5F1CD02BC9009E1AA3 /* Localizable.stringsdict */; };
 		DAC49C5D1CD02BC9009E1AA3 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = DAC49C5F1CD02BC9009E1AA3 /* Localizable.stringsdict */; };
+		DAD1656C1CF41981001FF4B9 /* MGLFeature.h in Headers */ = {isa = PBXBuildFile; fileRef = DAD165691CF41981001FF4B9 /* MGLFeature.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DAD1656D1CF41981001FF4B9 /* MGLFeature.h in Headers */ = {isa = PBXBuildFile; fileRef = DAD165691CF41981001FF4B9 /* MGLFeature.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DAD1656E1CF41981001FF4B9 /* MGLFeature_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = DAD1656A1CF41981001FF4B9 /* MGLFeature_Private.h */; };
+		DAD165701CF41981001FF4B9 /* MGLFeature.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAD1656B1CF41981001FF4B9 /* MGLFeature.mm */; };
+		DAD165711CF41981001FF4B9 /* MGLFeature.mm in Sources */ = {isa = PBXBuildFile; fileRef = DAD1656B1CF41981001FF4B9 /* MGLFeature.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -474,6 +479,9 @@
 		DABCABC01CB80717000A7C39 /* locations.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = locations.hpp; sourceTree = "<group>"; };
 		DAC07C961CBB2CD6000CB309 /* mbgl.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = mbgl.xcconfig; path = ../../build/ios/mbgl.xcconfig; sourceTree = "<group>"; };
 		DAC49C621CD07D74009E1AA3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		DAD165691CF41981001FF4B9 /* MGLFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLFeature.h; sourceTree = "<group>"; };
+		DAD1656A1CF41981001FF4B9 /* MGLFeature_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLFeature_Private.h; sourceTree = "<group>"; };
+		DAD1656B1CF41981001FF4B9 /* MGLFeature.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MGLFeature.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -664,6 +672,9 @@
 				DA35A2B01CCA141D00E826B2 /* MGLCompassDirectionFormatter.m */,
 				DA35A29D1CC9E94C00E826B2 /* MGLCoordinateFormatter.h */,
 				DA35A2A01CC9E95F00E826B2 /* MGLCoordinateFormatter.m */,
+				DAD165691CF41981001FF4B9 /* MGLFeature.h */,
+				DAD1656A1CF41981001FF4B9 /* MGLFeature_Private.h */,
+				DAD1656B1CF41981001FF4B9 /* MGLFeature.mm */,
 				DA8847E11CBAFA5100AB86E3 /* MGLGeometry.h */,
 				DA8848011CBAFA6200AB86E3 /* MGLGeometry_Private.h */,
 				DA8848021CBAFA6200AB86E3 /* MGLGeometry.mm */,
@@ -905,6 +916,7 @@
 				DA8847F91CBAFA5100AB86E3 /* MGLPolygon.h in Headers */,
 				DA8847F81CBAFA5100AB86E3 /* MGLPointAnnotation.h in Headers */,
 				DA8847F31CBAFA5100AB86E3 /* MGLMultiPoint.h in Headers */,
+				DAD1656C1CF41981001FF4B9 /* MGLFeature.h in Headers */,
 				DA88484F1CBAFB9800AB86E3 /* MGLAnnotationImage_Private.h in Headers */,
 				DA8847F21CBAFA5100AB86E3 /* MGLMapCamera.h in Headers */,
 				DA8847F51CBAFA5100AB86E3 /* MGLOfflineRegion.h in Headers */,
@@ -917,6 +929,7 @@
 				DA88482F1CBAFA6200AB86E3 /* NSProcessInfo+MGLAdditions.h in Headers */,
 				DA8848601CBAFC2E00AB86E3 /* Mapbox.h in Headers */,
 				DA8847F61CBAFA5100AB86E3 /* MGLOfflineStorage.h in Headers */,
+				DAD1656E1CF41981001FF4B9 /* MGLFeature_Private.h in Headers */,
 				DA88483C1CBAFB8500AB86E3 /* MGLMapView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -935,6 +948,7 @@
 				DABFB8721CBE9A0F00D62B32 /* MGLUserLocation.h in Headers */,
 				DABFB8661CBE99E500D62B32 /* MGLPointAnnotation.h in Headers */,
 				DABFB8621CBE99E500D62B32 /* MGLOfflinePack.h in Headers */,
+				DAD1656D1CF41981001FF4B9 /* MGLFeature.h in Headers */,
 				DA17BE311CC4BDAA00402C41 /* MGLMapView_Internal.h in Headers */,
 				DABFB86C1CBE99E500D62B32 /* MGLTypes.h in Headers */,
 				DABFB8691CBE99E500D62B32 /* MGLShape.h in Headers */,
@@ -1270,6 +1284,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA88485D1CBAFB9800AB86E3 /* MGLUserLocationAnnotationView.m in Sources */,
+				DAD165701CF41981001FF4B9 /* MGLFeature.mm in Sources */,
 				DA8848541CBAFB9800AB86E3 /* MGLCompactCalloutView.m in Sources */,
 				DA8848251CBAFA6200AB86E3 /* MGLPointAnnotation.m in Sources */,
 				DA88482D1CBAFA6200AB86E3 /* NSBundle+MGLAdditions.m in Sources */,
@@ -1308,6 +1323,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAA4E4221CBB730400178DFB /* MGLPointAnnotation.m in Sources */,
+				DAD165711CF41981001FF4B9 /* MGLFeature.mm in Sources */,
 				DAA4E4291CBB730400178DFB /* NSBundle+MGLAdditions.m in Sources */,
 				DAA4E42E1CBB730400178DFB /* MGLAPIClient.m in Sources */,
 				DAA4E4201CBB730400178DFB /* MGLOfflinePack.mm in Sources */,

@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol MGLAnnotation;
 @protocol MGLOverlay;
 @protocol MGLCalloutView;
+@protocol MGLFeature;
 
 /** The vertical alignment of an annotation within a map view. */
 typedef NS_ENUM(NSUInteger, MGLAnnotationVerticalAlignment) {
@@ -1017,6 +1018,10 @@ IB_DESIGNABLE
     protocol.
  */
 - (void)removeOverlays:(NS_ARRAY_OF(id <MGLOverlay>) *)overlays;
+
+#pragma mark Accessing the Underlying Map Data
+
+- (NS_ARRAY_OF(id <MGLFeature>) *)visibleFeaturesAtPoint:(CGPoint)point;
 
 #pragma mark Debugging the Map
 
