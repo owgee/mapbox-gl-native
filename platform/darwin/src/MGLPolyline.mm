@@ -41,7 +41,7 @@
 @synthesize overlayBounds = _overlayBounds;
 
 + (instancetype)multiPolylineWithPolylines:(NS_ARRAY_OF(MGLPolyline *) *)polylines {
-    return [[self alloc] init];
+    return [[self alloc] initWithPolylines:polylines];
 }
 
 - (instancetype)initWithPolylines:(NS_ARRAY_OF(MGLPolyline *) *)polylines {

@@ -41,10 +41,10 @@
 @synthesize overlayBounds = _overlayBounds;
 
 + (instancetype)multiPolygonWithPolygons:(NS_ARRAY_OF(MGLPolygon *) *)polygons {
-    return [[self alloc] init];
+    return [[self alloc] initWithPolygons:polygons];
 }
 
-- (instancetype)initWithPolygon:(NS_ARRAY_OF(MGLPolygon *) *)polygons {
+- (instancetype)initWithPolygons:(NS_ARRAY_OF(MGLPolygon *) *)polygons {
     if (self = [super init]) {
         _polygons = polygons;
         

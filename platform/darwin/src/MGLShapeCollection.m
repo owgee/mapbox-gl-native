@@ -9,7 +9,7 @@
 - (instancetype)initWithShapes:(NS_ARRAY_OF(MGLShape <MGLAnnotation> *) *)shapes {
     if (self = [super init]) {
         NSAssert(shapes.count, @"Cannot create an empty shape collection");
-        _shapes = shapes;
+        _shapes = shapes.copy;
     }
     return self;
 }
