@@ -390,7 +390,6 @@ public:
     
     _panGestureRecognizer = [[NSPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
     _panGestureRecognizer.delaysKeyEvents = YES;
-    _panGestureRecognizer.delaysPrimaryMouseButtonEvents = NO;
     [self addGestureRecognizer:_panGestureRecognizer];
     
     NSClickGestureRecognizer *clickGestureRecognizer = [[NSClickGestureRecognizer alloc] initWithTarget:self action:@selector(handleClickGesture:)];
