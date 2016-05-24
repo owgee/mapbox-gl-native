@@ -28,14 +28,6 @@
 
 @end
 
-@implementation MGLPolygonFeature
-
-- (id)objectForKey:(NSString *)attribute {
-    return self.featureAttributes[attribute];
-}
-
-@end
-
 @interface MGLMultiPolygon ()
 
 @property (nonatomic, strong, readwrite) NS_ARRAY_OF(MGLPolygon *) *polygons;
@@ -68,14 +60,6 @@
 
 - (BOOL)intersectsOverlayBounds:(MGLCoordinateBounds)overlayBounds {
     return MGLLatLngBoundsFromCoordinateBounds(_overlayBounds).intersects(MGLLatLngBoundsFromCoordinateBounds(overlayBounds));
-}
-
-@end
-
-@implementation MGLMultiPolygonFeature
-
-- (id)objectForKey:(NSString *)attribute {
-    return self.featureAttributes[attribute];
 }
 
 @end

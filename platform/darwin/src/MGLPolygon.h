@@ -30,25 +30,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface MGLPolygonFeature : MGLPolygon <MGLFeature>
-
-@property (nonatomic, copy, nullable, readwrite) NSNumber *featureTag;
-@property (nonatomic, copy, readwrite) NS_DICTIONARY_OF(NSString *, id) *featureAttributes;
-
-@end
-
 @interface MGLMultiPolygon : MGLShape <MGLOverlay>
 
 + (instancetype)multiPolygonWithPolygons:(NS_ARRAY_OF(MGLPolygon *) *)polygons;
 
 @property (nonatomic, strong, readonly) NS_ARRAY_OF(MGLPolygon *) *polygons;
-
-@end
-
-@interface MGLMultiPolygonFeature : MGLMultiPolygon <MGLFeature>
-
-@property (nonatomic, copy, nullable, readwrite) NSNumber *featureTag;
-@property (nonatomic, copy, readwrite) NS_DICTIONARY_OF(NSString *, id) *featureAttributes;
 
 @end
 

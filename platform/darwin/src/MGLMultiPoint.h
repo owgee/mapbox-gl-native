@@ -1,7 +1,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-#import "MGLFeature.h"
 #import "MGLShape.h"
 
 #import "MGLTypes.h"
@@ -34,13 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
     the number of requested coordinates.
  */
 - (void)getCoordinates:(CLLocationCoordinate2D *)coords range:(NSRange)range;
-
-@end
-
-@interface MGLMultiPointFeature : MGLMultiPoint <MGLFeature>
-
-@property (nonatomic, copy, nullable, readwrite) NSNumber *featureTag;
-@property (nonatomic, copy, readwrite) NS_DICTIONARY_OF(NSString *, id) *featureAttributes;
 
 @end
 

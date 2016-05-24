@@ -28,14 +28,6 @@
 
 @end
 
-@implementation MGLPolylineFeature
-
-- (id)objectForKey:(NSString *)attribute {
-    return self.featureAttributes[attribute];
-}
-
-@end
-
 @interface MGLMultiPolyline ()
 
 @property (nonatomic, strong, readwrite) NS_ARRAY_OF(MGLPolyline *) *polylines;
@@ -68,14 +60,6 @@
 
 - (BOOL)intersectsOverlayBounds:(MGLCoordinateBounds)overlayBounds {
     return MGLLatLngBoundsFromCoordinateBounds(_overlayBounds).intersects(MGLLatLngBoundsFromCoordinateBounds(overlayBounds));
-}
-
-@end
-
-@implementation MGLMultiPolylineFeature
-
-- (id)objectForKey:(NSString *)attribute {
-    return self.featureAttributes[attribute];
 }
 
 @end

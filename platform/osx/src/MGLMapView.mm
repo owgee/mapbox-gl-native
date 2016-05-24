@@ -1624,9 +1624,9 @@ public:
         } else if ([annotation isKindOfClass:[MGLMultiPolygon class]]) {
             NS_ARRAY_OF(MGLPolygon *) *polygons = [(MGLMultiPolygon *)annotation polygons];
             [self addAnnotations:polygons];
-        } else if ([annotation isKindOfClass:[MGLGeometryCollection class]]) {
-            NS_ARRAY_OF(id <MGLAnnotation>) *geometries = [(MGLGeometryCollection *)annotation geometries];
-            [self addAnnotations:geometries];
+        } else if ([annotation isKindOfClass:[MGLShapeCollection class]]) {
+            NS_ARRAY_OF(MGLShape <MGLAnnotation> *) *shapes = [(MGLShapeCollection *)annotation shapes];
+            [self addAnnotations:shapes];
         } else {
             MGLAnnotationImage *annotationImage = nil;
             if (delegateHasImagesForAnnotations) {

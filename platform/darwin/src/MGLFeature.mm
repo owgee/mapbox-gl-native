@@ -156,13 +156,13 @@ public:
     }
     
     MGLShape <MGLFeature> * operator()(const mapbox::geometry::geometry_collection<T> &collection) const {
-        NSMutableArray *geometries = [NSMutableArray arrayWithCapacity:collection.size()];
+        NSMutableArray *shapes = [NSMutableArray arrayWithCapacity:collection.size()];
         for (auto &geometry : collection) {
             GeometryEvaluator<T> evaluator;
             id <MGLFeature> feature = mapbox::geometry::geometry<T>::visit(geometry, evaluator);
-            [geometries addObject:feature];
+            [shapes addObject:feature];
         }
-        MGLGeometryCollectionFeature *feature = [MGLGeometryCollectionFeature geometryCollectionWithGeometries:geometries];
+        MGLShapeCollectionFeature *feature = [MGLShapeCollectionFeature shapeCollectionWithShapes:shapes];
         feature.featureTag = tag;
         feature.featureAttributes = attributes;
         return feature;
@@ -186,3 +186,59 @@ NS_ARRAY_OF(MGLShape <MGLFeature> *) *MGLFeaturesFromMBGLFeatures(const std::vec
     });
     return [NSArray arrayWithObjects:&shapes[0] count:shapes.size()];
 }
+
+@implementation MGLPointFeature
+
+- (id)objectForKey:(NSString *)attribute {
+    return self.featureAttributes[attribute];
+}
+
+@end
+
+@implementation MGLPolylineFeature
+
+- (id)objectForKey:(NSString *)attribute {
+    return self.featureAttributes[attribute];
+}
+
+@end
+
+@implementation MGLPolygonFeature
+
+- (id)objectForKey:(NSString *)attribute {
+    return self.featureAttributes[attribute];
+}
+
+@end
+
+@implementation MGLMultiPointFeature
+
+- (id)objectForKey:(NSString *)attribute {
+    return self.featureAttributes[attribute];
+}
+
+@end
+
+@implementation MGLMultiPolylineFeature
+
+- (id)objectForKey:(NSString *)attribute {
+    return self.featureAttributes[attribute];
+}
+
+@end
+
+@implementation MGLMultiPolygonFeature
+
+- (id)objectForKey:(NSString *)attribute {
+    return self.featureAttributes[attribute];
+}
+
+@end
+
+@implementation MGLShapeCollectionFeature
+
+- (id)objectForKey:(NSString *)attribute {
+    return self.featureAttributes[attribute];
+}
+
+@end
