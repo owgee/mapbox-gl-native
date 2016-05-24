@@ -3,6 +3,7 @@
 ## master
 
 * Fixed an issue in which Mapbox.framework was nested inside another folder named Mapbox.framework. ([#4998](https://github.com/mapbox/mapbox-gl-native/pull/4998))
+* Added methods to MGLMapView for obtaining the underlying map data rendered by the current style. ([#5110](https://github.com/mapbox/mapbox-gl-native/pull/5110))
 * Fixed a crash passing a mixture of point and shape annotations into `-[MGLMapView addAnnotations:]`. ([#5097](https://github.com/mapbox/mapbox-gl-native/pull/5097))
 
 ## 0.1.0
