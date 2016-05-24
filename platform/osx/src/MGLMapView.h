@@ -683,7 +683,177 @@ IB_DESIGNABLE
 
 #pragma mark Accessing the Underlying Map Data
 
+/**
+ Returns an array of rendered map features that intersect with a given point.
+ 
+ Each object in the returned array represents a feature rendered by the
+ current style and provides access to attributes specified by the relevant
+ vector tile sources. The returned array only includes features specified in
+ vector tile sources, not raster tile sources or other kinds of sources.
+ 
+ Only visible features are returned. For example, suppose the current style uses
+ the
+ <a href="https://www.mapbox.com/vector-tiles/mapbox-streets/">Mapbox Streets source</a>,
+ but none of its style layers includes features that have the `maki` property
+ set to `bus`. If you pass a point corresponding to the location of a bus stop
+ into this method, the bus stop feature does not appear in the resulting array.
+ On the other hand, if the style does include bus stops, an `MGLFeature` object
+ representing that bus stop is returned and its `featureAttributes` dictionary
+ has the `maki` key set to `bus` (along with other attributes). The dictionary
+ does not indicate how the feature is rendered by the current style.
+ 
+ The returned array is sorted by z-order, starting with the topmost rendered
+ feature and ending with the bottommost rendered feature. A feature that is
+ rendered multiple times due to wrapping across the antimeridian at low zoom
+ levels is included only once, subject to the caveat that follows.
+ 
+ Features come from tiled vector data or GeoJSON data that is converted to tiles
+ internally, so feature geometries are clipped at tile boundaries and features
+ may appear duplicated across tiles. For example, suppose the specified point
+ lies along a road that spans the screen. The resulting array includes those
+ parts of the road that lie within the map tile that contain the specified
+ point, even if the road extends into other tiles. If the road reenters a tile
+ in multiple places, it is represented by multiple features.
+ 
+ This method may return features from any of the map’s style layers. To restrict
+ the search to a particular layer or layers, use the
+ `-visibleFeaturesAtPoint:inStyleLayersWithIdentifiers:` method.
+ 
+ @param point A point expressed in the map view’s coordinate system.
+ @return An array of objects conforming to the `MGLFeature` protocol that
+    represent features in the sources used by the current style.
+ */
 - (NS_ARRAY_OF(id <MGLFeature>) *)visibleFeaturesAtPoint:(NSPoint)point;
+
+/**
+ Returns an array of rendered map features that intersect with a given point,
+ restricted to the given style layers.
+ 
+ Each object in the returned array represents a feature rendered by the
+ current style and provides access to attributes specified by the relevant
+ vector tile sources. The returned array only includes features specified in
+ vector tile sources, not raster tile sources or other kinds of sources.
+ 
+ Only visible features are returned. For example, suppose the current style uses
+ the
+ <a href="https://www.mapbox.com/vector-tiles/mapbox-streets/">Mapbox Streets source</a>,
+ but none of the specified style layers includes features that have the `maki`
+ property set to `bus`. If you pass a point corresponding to the location of a
+ bus stop into this method, the bus stop feature does not appear in the
+ resulting array. On the other hand, if the style does include bus stops, an
+ `MGLFeature` object representing that bus stop is returned and its
+ `featureAttributes` dictionary has the `maki` key set to `bus` (along with
+ other attributes). The dictionary does not indicate how the feature is rendered
+ by the current style.
+ 
+ The returned array is sorted by z-order, starting with the topmost rendered
+ feature and ending with the bottommost rendered feature. A feature that is
+ rendered multiple times due to wrapping across the antimeridian at low zoom
+ levels is included only once, subject to the caveat that follows.
+ 
+ Features come from tiled vector data or GeoJSON data that is converted to tiles
+ internally, so feature geometries are clipped at tile boundaries and features
+ may appear duplicated across tiles. For example, suppose the specified point
+ lies along a road that spans the screen. The resulting array includes those
+ parts of the road that lie within the map tile that contain the specified
+ point, even if the road extends into other tiles. If the road reenters a tile
+ in multiple places, it is represented by multiple features.
+ 
+ @param point A point expressed in the map view’s coordinate system.
+ @param styleLayerIdentifiers An array of strings that correspond to the names
+    of layers defined in the current style. Only the features contained in these
+    layers are included in the returned array.
+ @return An array of objects conforming to the `MGLFeature` protocol that
+    represent features in the sources used by the current style.
+ */
+- (NS_ARRAY_OF(id <MGLFeature>) *)visibleFeaturesAtPoint:(NSPoint)point inStyleLayersWithIdentifiers:(nullable NS_SET_OF(NSString *) *)styleLayerIdentifiers;
+
+/**
+ Returns an array of rendered map features that intersect with the given
+ rectangle.
+ 
+ Each object in the returned array represents a feature rendered by the
+ current style and provides access to attributes specified by the relevant
+ vector tile sources. The returned array only includes features specified in
+ vector tile sources, not raster tile sources or other kinds of sources.
+ 
+ Only visible features are returned. For example, suppose the current style uses
+ the
+ <a href="https://www.mapbox.com/vector-tiles/mapbox-streets/">Mapbox Streets source</a>,
+ but none of its style layers includes features that have the `maki` property
+ set to `bus`. If you pass a rectangle containing the location of a bus stop
+ into this method, the bus stop feature does not appear in the resulting array.
+ On the other hand, if the style does include bus stops, an `MGLFeature` object
+ representing that bus stop is returned and its `featureAttributes` dictionary
+ has the `maki` key set to `bus` (along with other attributes). The dictionary
+ does not indicate how the feature is rendered by the current style.
+ 
+ The returned array is sorted by z-order, starting with the topmost rendered
+ feature and ending with the bottommost rendered feature. A feature that is
+ rendered multiple times due to wrapping across the antimeridian at low zoom
+ levels is included only once, subject to the caveat that follows.
+ 
+ Features come from tiled vector data or GeoJSON data that is converted to tiles
+ internally, so feature geometries are clipped at tile boundaries and features
+ may appear duplicated across tiles. For example, suppose the specified
+ rectangle intersects with a road that spans the screen. The resulting array
+ includes those parts of the road that lie within the map tiles covering the
+ specified rectangle, even if the road extends into other tiles. If the road
+ reenters a tile in multiple places, it is represented by multiple features. The
+ portion of the road within each map tile is included individually.
+ 
+ This method may return features from any of the map’s style layers. To restrict
+ the search to a particular layer or layers, use the
+ `-visibleFeaturesAtPoint:inStyleLayersWithIdentifiers:` method.
+ 
+ @param rect A rectangle expressed in the map view’s coordinate system.
+ @return An array of objects conforming to the `MGLFeature` protocol that
+    represent features in the sources used by the current style.
+ */
+- (NS_ARRAY_OF(id <MGLFeature>) *)visibleFeaturesInRect:(NSRect)rect;
+
+/**
+ Returns an array of rendered map features that intersect with the given
+ rectangle, restricted to the given style layers.
+ 
+ Each object in the returned array represents a feature rendered by the
+ current style and provides access to attributes specified by the relevant
+ vector tile sources. The returned array only includes features specified in
+ vector tile sources, not raster tile sources or other kinds of sources.
+ 
+ Only visible features are returned. For example, suppose the current style uses
+ the
+ <a href="https://www.mapbox.com/vector-tiles/mapbox-streets/">Mapbox Streets source</a>,
+ but none of the specified style layers includes features that have the `maki`
+ property set to `bus`. If you pass a rectangle containing the location of a bus
+ stop into this method, the bus stop feature does not appear in the resulting
+ array. On the other hand, if the style does include bus stops, an `MGLFeature`
+ object representing that bus stop is returned and its `featureAttributes`
+ dictionary has the `maki` key set to `bus` (along with other attributes). The
+ dictionary does not indicate how the feature is rendered by the current style.
+ 
+ The returned array is sorted by z-order, starting with the topmost rendered
+ feature and ending with the bottommost rendered feature. A feature that is
+ rendered multiple times due to wrapping across the antimeridian at low zoom
+ levels is included only once, subject to the caveat that follows.
+ 
+ Features come from tiled vector data or GeoJSON data that is converted to tiles
+ internally, so feature geometries are clipped at tile boundaries and features
+ may appear duplicated across tiles. For example, suppose the specified
+ rectangle intersects with a road that spans the screen. The resulting array
+ includes those parts of the road that lie within the map tiles covering the
+ specified rectangle, even if the road extends into other tiles. If the road
+ reenters a tile in multiple places, it is represented by multiple features. The
+ portion of the road within each map tile is included individually.
+ 
+ @param rect A rectangle expressed in the map view’s coordinate system.
+ @param styleLayerIdentifiers An array of strings that correspond to the names
+    of layers defined in the current style. Only the features contained in these
+    layers are included in the returned array.
+ @return An array of objects conforming to the `MGLFeature` protocol that
+    represent features in the sources used by the current style.
+ */
+- (NS_ARRAY_OF(id <MGLFeature>) *)visibleFeaturesInRect:(NSRect)rect inStyleLayersWithIdentifiers:(nullable NS_SET_OF(NSString *) *)styleLayerIdentifiers;
 
 #pragma mark Converting Geographic Coordinates
 

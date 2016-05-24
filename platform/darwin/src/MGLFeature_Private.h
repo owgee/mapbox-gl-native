@@ -4,4 +4,4 @@
 #import <mbgl/util/geo.hpp>
 #import <mbgl/util/feature.hpp>
 
-MGLShape <MGLFeature> * MGLFeatureFromMBGLFeature(const mbgl::Feature &feature);
+NS_ARRAY_OF(MGLShape <MGLFeature> *) *MGLFeaturesFromMBGLFeatures(const std::vector<mbgl::Feature> &features);

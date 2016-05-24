@@ -4190,13 +4190,53 @@ mbgl::Duration MGLDurationInSeconds(NSTimeInterval duration)
 
 #pragma mark Data
 
-- (NS_ARRAY_OF(id <MGLFeature>) *)visibleFeaturesAtPoint:(CGPoint)point {
-    mbgl::ScreenCoordinate flippedPoint = { point.x, point.y };
-    std::vector<mbgl::Feature> features = _mbglMap->queryRenderedFeatures(flippedPoint);
-    std::vector<id <MGLFeature>> annotations;
-    annotations.reserve(features.size());
-    std::transform(features.begin(), features.end(), std::back_inserter(annotations), MGLFeatureFromMBGLFeature);
-    return [NSArray arrayWithObjects:&annotations[0] count:annotations.size()];
+- (NS_ARRAY_OF(id <MGLFeature>) *)visibleFeaturesAtPoint:(CGPoint)point
+{
+    return [self visibleFeaturesAtPoint:point inStyleLayersWithIdentifiers:nil];
+}
+
+- (NS_ARRAY_OF(id <MGLFeature>) *)visibleFeaturesAtPoint:(CGPoint)point inStyleLayersWithIdentifiers:(NS_SET_OF(NSString *) *)styleLayerIdentifiers
+{
+    mbgl::ScreenCoordinate screenCoordinate = { point.x, point.y };
+    
+    mbgl::optional<std::vector<std::string>> optionalLayerIDs;
+    if (styleLayerIdentifiers)
+    {
+        __block std::vector<std::string> layerIDs;
+        layerIDs.reserve(styleLayerIdentifiers.count);
+        [styleLayerIdentifiers enumerateObjectsUsingBlock:^(NSString * _Nonnull identifier, BOOL * _Nonnull stop)
+        {
+            layerIDs.push_back(identifier.UTF8String);
+        }];
+        optionalLayerIDs = layerIDs;
+    }
+    
+    std::vector<mbgl::Feature> features = _mbglMap->queryRenderedFeatures(screenCoordinate, optionalLayerIDs);
+    return MGLFeaturesFromMBGLFeatures(features);
+}
+
+- (NS_ARRAY_OF(id <MGLFeature>) *)visibleFeaturesInRect:(CGRect)rect {
+    return [self visibleFeaturesInRect:rect inStyleLayersWithIdentifiers:nil];
+}
+
+- (NS_ARRAY_OF(id <MGLFeature>) *)visibleFeaturesInRect:(CGRect)rect inStyleLayersWithIdentifiers:(NS_SET_OF(NSString *) *)styleLayerIdentifiers {
+    mbgl::ScreenBox screenBox = {
+        { CGRectGetMinX(rect), CGRectGetMinY(rect) },
+        { CGRectGetMaxX(rect), CGRectGetMaxY(rect) },
+    };
+    
+    mbgl::optional<std::vector<std::string>> optionalLayerIDs;
+    if (styleLayerIdentifiers) {
+        __block std::vector<std::string> layerIDs;
+        layerIDs.reserve(styleLayerIdentifiers.count);
+        [styleLayerIdentifiers enumerateObjectsUsingBlock:^(NSString * _Nonnull identifier, BOOL * _Nonnull stop) {
+            layerIDs.push_back(identifier.UTF8String);
+        }];
+        optionalLayerIDs = layerIDs;
+    }
+    
+    std::vector<mbgl::Feature> features = _mbglMap->queryRenderedFeatures(screenBox, optionalLayerIDs);
+    return MGLFeaturesFromMBGLFeatures(features);
 }
 
 #pragma mark - Utility -

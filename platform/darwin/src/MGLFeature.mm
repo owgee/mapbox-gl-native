@@ -177,7 +177,12 @@ private:
     }
 };
 
-MGLShape <MGLFeature> * MGLFeatureFromMBGLFeature(const mbgl::Feature &feature) {
-    GeometryEvaluator<double> evaluator(feature);
-    return mapbox::geometry::geometry<double>::visit(feature.geometry, evaluator);
+NS_ARRAY_OF(MGLShape <MGLFeature> *) *MGLFeaturesFromMBGLFeatures(const std::vector<mbgl::Feature> &features) {
+    std::vector<MGLShape <MGLFeature> *> shapes;
+    shapes.reserve(features.size());
+    std::transform(features.begin(), features.end(), std::back_inserter(shapes), ^MGLShape <MGLFeature> * (const mbgl::Feature &feature) {
+        GeometryEvaluator<double> evaluator(feature);
+        return mapbox::geometry::geometry<double>::visit(feature.geometry, evaluator);
+    });
+    return [NSArray arrayWithObjects:&shapes[0] count:shapes.size()];
 }
