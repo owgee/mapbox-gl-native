@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
+#import "MGLFeature.h"
 #import "MGLShape.h"
 
 #import "MGLTypes.h"

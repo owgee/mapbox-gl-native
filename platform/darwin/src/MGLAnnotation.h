@@ -58,13 +58,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@protocol MGLFeature <MGLAnnotation>
-
-@property (nonatomic, copy, nullable, readonly) NSNumber *featureTag;
-@property (nonatomic, copy, readonly) NS_DICTIONARY_OF(NSString *, id) *featureAttributes;
-
-- (nullable id)objectForKey:(NSString *)attribute;
-
-@end
-
 NS_ASSUME_NONNULL_END

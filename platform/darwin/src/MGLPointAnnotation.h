@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
+#import "MGLFeature.h"
 #import "MGLShape.h"
 
 #import "MGLTypes.h"
@@ -29,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface MGLGeometryCollection : NSObject <MGLAnnotation>
+@interface MGLGeometryCollection : MGLShape
 
 @property (nonatomic, copy) NS_ARRAY_OF(id <MGLAnnotation>) *geometries;
 
