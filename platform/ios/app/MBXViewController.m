@@ -463,9 +463,8 @@ static NSString * const MBXViewControllerAnnotationViewReuseIdentifer = @"MBXVie
         NSArray *features = [self.mapView visibleFeaturesAtPoint:point];
         NSString *title;
         for (id <MGLFeature> feature in features) {
-            NSLog(@"#%@: %@", feature.featureTag, feature.featureAttributes);
             if (!title) {
-                title = [feature objectForKey:@"name_en"] ?: [feature objectForKey:@"name"];
+                title = [feature attributeForKey:@"name_en"] ?: [feature attributeForKey:@"name"];
             }
         }
         

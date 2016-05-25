@@ -77,8 +77,8 @@ public:
     MGLShape <MGLFeature> * operator()(const mapbox::geometry::point<T> &geometry) const {
         MGLPointFeature *feature = [[MGLPointFeature alloc] init];
         feature.coordinate = coordinateFromPoint(geometry);
-        feature.featureTag = tag;
-        feature.featureAttributes = attributes;
+        feature.identifier = tag;
+        feature.attributes = attributes;
         return feature;
     }
     
@@ -88,8 +88,8 @@ public:
         std::transform(geometry.begin(), geometry.end(), std::back_inserter(coordinates), coordinateFromPoint);
         
         MGLPolylineFeature *feature = [[MGLPolylineFeature alloc] initWithCoordinates:&coordinates[0] count:coordinates.size()];
-        feature.featureTag = tag;
-        feature.featureAttributes = attributes;
+        feature.identifier = tag;
+        feature.attributes = attributes;
         return feature;
     }
     
@@ -102,8 +102,8 @@ public:
         std::transform(linearRing.begin(), linearRing.end(), std::back_inserter(coordinates), coordinateFromPoint);
         
         MGLPolygonFeature *feature = [[MGLPolygonFeature alloc] initWithCoordinates:&coordinates[0] count:coordinates.size()];
-        feature.featureTag = tag;
-        feature.featureAttributes = attributes;
+        feature.identifier = tag;
+        feature.attributes = attributes;
         return feature;
     }
     
@@ -113,8 +113,8 @@ public:
         std::transform(geometry.begin(), geometry.end(), std::back_inserter(coordinates), coordinateFromPoint);
         
         MGLMultiPointFeature *feature = [[MGLMultiPointFeature alloc] initWithCoordinates:&coordinates[0] count:coordinates.size()];
-        feature.featureTag = tag;
-        feature.featureAttributes = attributes;
+        feature.identifier = tag;
+        feature.attributes = attributes;
         return feature;
     }
     
@@ -130,8 +130,8 @@ public:
         }
         
         MGLMultiPolylineFeature *feature = [MGLMultiPolylineFeature multiPolylineWithPolylines:polylines];
-        feature.featureTag = tag;
-        feature.featureAttributes = attributes;
+        feature.identifier = tag;
+        feature.attributes = attributes;
         return feature;
     }
     
@@ -150,8 +150,8 @@ public:
         }
         
         MGLMultiPolygonFeature *feature = [MGLMultiPolygonFeature multiPolygonWithPolygons:polygons];
-        feature.featureTag = tag;
-        feature.featureAttributes = attributes;
+        feature.identifier = tag;
+        feature.attributes = attributes;
         return feature;
     }
     
@@ -163,8 +163,8 @@ public:
             [shapes addObject:feature];
         }
         MGLShapeCollectionFeature *feature = [MGLShapeCollectionFeature shapeCollectionWithShapes:shapes];
-        feature.featureTag = tag;
-        feature.featureAttributes = attributes;
+        feature.identifier = tag;
+        feature.attributes = attributes;
         return feature;
     }
     
@@ -189,56 +189,56 @@ NS_ARRAY_OF(MGLShape <MGLFeature> *) *MGLFeaturesFromMBGLFeatures(const std::vec
 
 @implementation MGLPointFeature
 
-- (id)objectForKey:(NSString *)attribute {
-    return self.featureAttributes[attribute];
+- (id)attributeForKey:(NSString *)key {
+    return self.attributes[key];
 }
 
 @end
 
 @implementation MGLPolylineFeature
 
-- (id)objectForKey:(NSString *)attribute {
-    return self.featureAttributes[attribute];
+- (id)attributeForKey:(NSString *)key {
+    return self.attributes[key];
 }
 
 @end
 
 @implementation MGLPolygonFeature
 
-- (id)objectForKey:(NSString *)attribute {
-    return self.featureAttributes[attribute];
+- (id)attributeForKey:(NSString *)key {
+    return self.attributes[key];
 }
 
 @end
 
 @implementation MGLMultiPointFeature
 
-- (id)objectForKey:(NSString *)attribute {
-    return self.featureAttributes[attribute];
+- (id)attributeForKey:(NSString *)key {
+    return self.attributes[key];
 }
 
 @end
 
 @implementation MGLMultiPolylineFeature
 
-- (id)objectForKey:(NSString *)attribute {
-    return self.featureAttributes[attribute];
+- (id)attributeForKey:(NSString *)key {
+    return self.attributes[key];
 }
 
 @end
 
 @implementation MGLMultiPolygonFeature
 
-- (id)objectForKey:(NSString *)attribute {
-    return self.featureAttributes[attribute];
+- (id)attributeForKey:(NSString *)key {
+    return self.attributes[key];
 }
 
 @end
 
 @implementation MGLShapeCollectionFeature
 
-- (id)objectForKey:(NSString *)attribute {
-    return self.featureAttributes[attribute];
+- (id)attributeForKey:(NSString *)key {
+    return self.attributes[key];
 }
 
 @end

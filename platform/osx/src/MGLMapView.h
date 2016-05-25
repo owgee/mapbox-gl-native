@@ -698,9 +698,9 @@ IB_DESIGNABLE
  set to `bus`. If you pass a point corresponding to the location of a bus stop
  into this method, the bus stop feature does not appear in the resulting array.
  On the other hand, if the style does include bus stops, an `MGLFeature` object
- representing that bus stop is returned and its `featureAttributes` dictionary
- has the `maki` key set to `bus` (along with other attributes). The dictionary
- does not indicate how the feature is rendered by the current style.
+ representing that bus stop is returned and its `attributes` dictionary has the
+ `maki` key set to `bus` (along with other attributes). The dictionary does not
+ indicate how the feature is rendered by the current style.
  
  The returned array is sorted by z-order, starting with the topmost rendered
  feature and ending with the bottommost rendered feature. A feature that is
@@ -742,9 +742,9 @@ IB_DESIGNABLE
  bus stop into this method, the bus stop feature does not appear in the
  resulting array. On the other hand, if the style does include bus stops, an
  `MGLFeature` object representing that bus stop is returned and its
- `featureAttributes` dictionary has the `maki` key set to `bus` (along with
- other attributes). The dictionary does not indicate how the feature is rendered
- by the current style.
+ `attributes` dictionary has the `maki` key set to `bus` (along with other
+ attributes). The dictionary does not indicate how the feature is rendered by
+ the current style.
  
  The returned array is sorted by z-order, starting with the topmost rendered
  feature and ending with the bottommost rendered feature. A feature that is
@@ -758,6 +758,9 @@ IB_DESIGNABLE
  parts of the road that lie within the map tile that contain the specified
  point, even if the road extends into other tiles. If the road reenters a tile
  in multiple places, it is represented by multiple features.
+ 
+ To find out the layer names in a particular style, view the style in
+ <a href="https://www.mapbox.com/studio/">Mapbox Studio</a>.
  
  @param point A point expressed in the map view’s coordinate system.
  @param styleLayerIdentifiers An array of strings that correspond to the names
@@ -784,9 +787,9 @@ IB_DESIGNABLE
  set to `bus`. If you pass a rectangle containing the location of a bus stop
  into this method, the bus stop feature does not appear in the resulting array.
  On the other hand, if the style does include bus stops, an `MGLFeature` object
- representing that bus stop is returned and its `featureAttributes` dictionary
- has the `maki` key set to `bus` (along with other attributes). The dictionary
- does not indicate how the feature is rendered by the current style.
+ representing that bus stop is returned and its `attributes` dictionary has the
+ `maki` key set to `bus` (along with other attributes). The dictionary does not
+ indicate how the feature is rendered by the current style.
  
  The returned array is sorted by z-order, starting with the topmost rendered
  feature and ending with the bottommost rendered feature. A feature that is
@@ -828,9 +831,9 @@ IB_DESIGNABLE
  property set to `bus`. If you pass a rectangle containing the location of a bus
  stop into this method, the bus stop feature does not appear in the resulting
  array. On the other hand, if the style does include bus stops, an `MGLFeature`
- object representing that bus stop is returned and its `featureAttributes`
- dictionary has the `maki` key set to `bus` (along with other attributes). The
- dictionary does not indicate how the feature is rendered by the current style.
+ object representing that bus stop is returned and its `attributes` dictionary
+ has the `maki` key set to `bus` (along with other attributes). The dictionary
+ does not indicate how the feature is rendered by the current style.
  
  The returned array is sorted by z-order, starting with the topmost rendered
  feature and ending with the bottommost rendered feature. A feature that is
@@ -845,6 +848,9 @@ IB_DESIGNABLE
  specified rectangle, even if the road extends into other tiles. If the road
  reenters a tile in multiple places, it is represented by multiple features. The
  portion of the road within each map tile is included individually.
+ 
+ To find out the layer names in a particular style, view the style in
+ <a href="https://www.mapbox.com/studio/">Mapbox Studio</a>.
  
  @param rect A rectangle expressed in the map view’s coordinate system.
  @param styleLayerIdentifiers An array of strings that correspond to the names

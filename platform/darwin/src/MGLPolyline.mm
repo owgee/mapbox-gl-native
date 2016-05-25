@@ -30,7 +30,7 @@
 
 @interface MGLMultiPolyline ()
 
-@property (nonatomic, strong, readwrite) NS_ARRAY_OF(MGLPolyline *) *polylines;
+@property (nonatomic, copy, readwrite) NS_ARRAY_OF(MGLPolyline *) *polylines;
 
 @end
 

@@ -1097,6 +1097,9 @@ IB_DESIGNABLE
  point, even if the road extends into other tiles. If the road reenters a tile
  in multiple places, it is represented by multiple features.
  
+ To find out the layer names in a particular style, view the style in
+ <a href="https://www.mapbox.com/studio/">Mapbox Studio</a>.
+ 
  @param point A point expressed in the map view’s coordinate system.
  @param styleLayerIdentifiers An array of strings that correspond to the names
     of layers defined in the current style. Only the features contained in these
@@ -1183,6 +1186,9 @@ IB_DESIGNABLE
  specified rectangle, even if the road extends into other tiles. If the road
  reenters a tile in multiple places, it is represented by multiple features. The
  portion of the road within each map tile is included individually.
+ 
+ To find out the layer names in a particular style, view the style in
+ <a href="https://www.mapbox.com/studio/">Mapbox Studio</a>.
  
  @param rect A rectangle expressed in the map view’s coordinate system.
  @param styleLayerIdentifiers An array of strings that correspond to the names

@@ -30,7 +30,7 @@
 
 @interface MGLMultiPolygon ()
 
-@property (nonatomic, strong, readwrite) NS_ARRAY_OF(MGLPolygon *) *polygons;
+@property (nonatomic, copy, readwrite) NS_ARRAY_OF(MGLPolygon *) *polygons;
 
 @end
 
